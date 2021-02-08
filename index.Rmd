@@ -14,16 +14,16 @@ submitted-text: A thesis submitted for the degree of
 degree: Doctor of Philosophy
 degreedate: Michaelmas 2018
 abstract: |
-  `r paste(readLines("front-and-back-matter/_abstract.Rmd"), collapse = '\n  ')`
+  `r paste(readLines("content/matter/_abstract.Rmd"), collapse = '\n  ')`
 acknowledgements: |
-  `r paste(readLines("front-and-back-matter/_acknowledgements.Rmd"), collapse = '\n  ')`
+  `r paste(readLines("content/matter/_acknowledgements.Rmd"), collapse = '\n  ')`
 dedication: For Yihui Xie
-abbreviations: "front-and-back-matter/abbreviations" # path to .tex file with abbreviations
+abbreviations: "content/matter/abbreviations" # path to .tex file with abbreviations
 
 #######################
 ## bibliography path ##
 #######################
-bibliography: references.bib
+bibliography: content/references.bib
 bibliography-heading-in-pdf: Works Cited
 
 ########################
@@ -38,7 +38,7 @@ word-count: 10,052
 
 # if you want to use a different title page altogether, provide a path to a 
 # .tex file here and it will override the default Oxford one
-# alternative-title-page: front-and-back-matter/alt-title-page-example.tex
+# alternative-title-page: content/matter/alt-title-page-example.tex
 
 ## correction highlighting ##
 corrections: true
@@ -97,7 +97,7 @@ output:
     template: templates/template.tex
     keep_tex: true
     citation_package: biblatex  
-    pandoc_args: "--lua-filter=scripts_and_filters/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
   bookdown::bs4_book: 
     css: 
       - templates/bs4_style.css
@@ -105,7 +105,7 @@ output:
     theme:
       primary: "#6D1919"
     repo: https://github.com/ulyngs/oxforddown
-    pandoc_args: "--lua-filter=scripts_and_filters/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
   bookdown::gitbook:
     css: templates/style.css
     config:
@@ -129,12 +129,12 @@ knit: (function(input, ...) {bookdown::render_book(input, output_format = "bookd
 
 
 ```{r install_packages, include=FALSE}
-source('scripts_and_filters/install_packages_if_missing.R')
+source('scripts/install_packages_if_missing.R')
 ```
 
 ```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
-source('scripts_and_filters/create_chunk_options.R')
-source('scripts_and_filters/wrap_lines.R')
+source('scripts/create_chunk_options.R')
+source('scripts/wrap_lines.R')
 ```
 
 <!--
@@ -145,5 +145,5 @@ If you need to create your own additional chunk options, edit the file scripts/c
 -->
 
 <!-- This chunk includes the front page content in HTML output -->
-```{r ebook-welcome, child = 'front-and-back-matter/_welcome-ebook.Rmd', eval=knitr::is_html_output()}
+```{r ebook-welcome, child = 'content/matter/_welcome-ebook.Rmd', eval=knitr::is_html_output()}
 ```
