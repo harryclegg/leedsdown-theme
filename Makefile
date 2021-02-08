@@ -1,6 +1,6 @@
 pdf:
 	Rscript -e 'options(bookdown.render.file_scope = FALSE); bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
-	Rscript -e 'file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("front-and-back-matter", "abbreviations.aux"))'
+	Rscript -e 'file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/matter", "abbreviations.aux"))'
 	Rscript -e 'browseURL(here::here("docs", "_main.pdf"))'
 
 bs4book:
@@ -23,4 +23,3 @@ clean:
 clean-knits:
 	Rscript -e 'file.remove(list.files(pattern = "*.(docx|html|pdf|log|maf|mtc|tex|toc|out|lof|lot|bcf|aux)"))'
 	Rscript -e 'unlink(list.files(pattern = "*_(files|cache)"), recursive = TRUE)'
-

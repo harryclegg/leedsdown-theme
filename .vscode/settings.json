@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/_main.*": true,
+        "**/_bookdown_files": true,
+        "**/_main_files": true,
+        "**/.Rproj.user": true
+    }
+}
