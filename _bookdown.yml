@@ -6,12 +6,12 @@
 
 # If you specify a sub directory with rmd_subdir, then bookdown will search through this
 # folder too
-rmd_subdir: ["content", "content/matter"]
+rmd_subdir: ["content", "content/00-frontmatter"]
 
 # Alternatively, you can comment out rmd_subdir and specify manually what files to include with rmd_files
-#rmd_files: ["index.Rmd", "01-rmd-basics-markdown.Rmd", "02-rmd-basics-code.Rmd", "03-rmd-basics-cites-and-refs.Rmd", "04-oxthesis.Rmd", "05-conclusion.Rmd", "content/matter/98-appendices.Rmd", "content/matter/99-references.Rmd"]
+#rmd_files: ["index.Rmd", "01-rmd-basics-markdown.Rmd", "02-rmd-basics-code.Rmd", "03-rmd-basics-cites-and-refs.Rmd", "04-oxthesis.Rmd", "05-conclusion.Rmd", "content/00-frontmatter/98-appendices.Rmd", "content/00-frontmatter/99-references.Rmd"]
   
-output_dir: "docs"
+output_dir: "out"
 
 # You can provide a link here if you want people to be able to suggest and submit changes
 # to the source .Rmd files on your github repo, cf. https://bookdown.org/yihui/bookdown/html.html

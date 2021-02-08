@@ -1,6 +1,7 @@
 {
     "files.exclude": {
-        "**/_main.*": true,
+        "**/out/_main.pdf": false,
+        "_main.*": true,
         "**/_bookdown_files": true,
         "**/_main_files": true,
         "**/.Rproj.user": true

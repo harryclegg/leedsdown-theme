@@ -63,14 +63,16 @@
 \def\degreedate#1{\gdef\@degreedate{#1}}
 % The full (unabbreviated) name of the degree
 \def\degree#1{\gdef\@degree{#1}}
-% The name of your Oxford college (eg Christ Church, Pembroke)
-\def\college#1{\gdef\@college{#1}}
+% The name of your Oxford school (eg Christ Church, Pembroke)
+\def\school#1{\gdef\@school{#1}}
+\def\university#1{\gdef\@university{#1}}
+
 % Your candidate number (ie for master's submissions)
 \def\candidateno#1{\gdef\@candidateno{#1}}
 % Your word count (for master's submissions)
 \def\wordcount#1{\gdef\@wordcount{#1}}
 \newif\ifmasterssubmission
-% adds candidate number and word count in place of name and college
+% adds candidate number and word count in place of name and school
 \masterssubmissionfalse
 
 
@@ -166,49 +168,30 @@
        \else\newpage\thispagestyle{empty}\fi}
 
 
-%define title page layout
-\newcommand{\university}{University of Oxford}
-
 \renewcommand{\maketitle}{%
 \begin{alwayssingle}\null
     \renewcommand{\footnotesize}{\small}
     \renewcommand{\footnoterule}{\relax}
     \thispagestyle{empty}
-\ifmasterssubmission
-  \begin{center}
-  \vspace*{-3ex}
-    { \LARGE {\bfseries {\@title}} \par}
-{\large \vspace*{25mm} {\crest \par} \vspace*{20mm}}
-    {{\Large Candidate no.\ \@candidateno} \par}
-{\large \vspace*{1ex}
-    {Word count: {\@wordcount} \par}
-\vspace*{4ex}
-    {{\submittedtext} \par}
-\vspace*{1ex}
-    {\it {\@degree} \par}
-\vspace*{6ex}
-	{{\originalitytext} \par}
-\vspace*{2ex}
-    {\@degreedate}}
-  \end{center}
-\else
-  \begin{center}
-    { \LARGE {\bfseries {\@title}} \par}
+
+\begin{center}
+{ \LARGE {\bfseries {\@title}} \par}
 {\large \vspace*{30mm} {\crest \par} \vspace*{25mm}}
-    {{\Large \@author} \par}
+{{\Large \@author} \par}
 {\large \vspace*{1ex}
-    {{\@college} \par}
+{{\school} \par}
 \vspace*{1ex}
-    {\university \par}
+{\university \par}
 \vspace*{20mm}
-    {{\submittedtext} \par}
+{{\submittedtext} \par}
 \vspace*{1ex}
-    {\it {\@degree} \par}
+{\it {\@degree} \par}
 \vspace*{2ex}
-    {\@degreedate}}
-  \end{center}
-\fi
-  \vfill\null
+{\@degreedate}}
+\end{center}
+
+\vfill\null
+
 \end{alwayssingle}}
 
 
@@ -269,7 +252,7 @@
 \ifmasterssubmission
     {Thesis word count: {\@wordcount} \par}
 \else
-    {{\@college} \par}
+    {{\@school} \par}
     {University of Oxford \par}
 \fi
 \vspace*{1ex}

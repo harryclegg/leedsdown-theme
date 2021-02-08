@@ -180,7 +180,9 @@ $endfor$
 % Everybody needs to complete the following:
 \title{$title$}
 \author{$author$}
-\college{$college$}
+\makeatletter
+\let\theAuthor\@author
+\makeatother
 
 % Master's candidates who require the alternate title page (with candidate number and word count)
 % must also un-comment and complete the following three lines:
@@ -232,6 +234,7 @@ $endif$
 %
 \def\crest{{\includegraphics{$university-logo$}}}
 \renewcommand{\university}{$university$}
+\renewcommand{\school}{$school$}
 \renewcommand{\submittedtext}{$submitted-text$}
 
 
@@ -250,26 +253,12 @@ $endif$
 % The level that shows up in the ToC:
 \setcounter{tocdepth}{$toc-depth$}
 
-
-%%%%% ABSTRACT SEPARATE
-% This is used to create the separate, one-page abstract that you are required to hand into the Exam
-% Schools.  You can comment it out to generate a PDF for printing or whatnot.
-$if(abstractseparate)$
-\begin{abstractseparate}
-  $abstract$
-\end{abstractseparate}
-$endif$
-
 % JEM: Pages are roman numbered from here, though page numbers are invisible until ToC.  This is in
 % keeping with most typesetting conventions.
 \begin{romanpages}
 
 % Title page is created here
-$if(alternative-title-page)$
-\input{$alternative-title-page$}
-$else$
 \maketitle
-$endif$
 
 %%%%% DEDICATION -- If you'd like one, un-comment the following.
 $if(dedication)$

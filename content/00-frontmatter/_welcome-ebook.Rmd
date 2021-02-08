@@ -18,10 +18,10 @@ Ulrik Lyngs \
 :::
 
 ## Abstract {-}
-```{r abstract, child=here::here('content/matter/_abstract.Rmd')}
+```{r abstract, child=here::here('content/00-frontmatter/_abstract.Rmd')}
 ```
 
 
 ## Acknowledgments {-}
-```{r acknowledgments, child=here::here('content/matter/_acknowledgements.Rmd')}
+```{r acknowledgments, child=here::here('content/00-frontmatter/_acknowledgements.Rmd')}
 ```

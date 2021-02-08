@@ -14,6 +14,8 @@ _bookdown_files
 _main_files
 .Rproj.user
 
+*.tex
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

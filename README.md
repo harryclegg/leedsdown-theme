@@ -102,10 +102,10 @@ For how to write your content with the R Markdown syntax, read through the sampl
 ### Writing your thesis
 - update the YAML header (the stuff at the top between '---') in **index.Rmd** with your name, college, etc.
 - write the individual chapters as **.Rmd** files in the root folder
-- write the front matter (abstract, acknowledgements, abbreviations) and back matter (appendices) by adjusting the **.Rmd** files in the **content/matter/** folder
-- for abbreviations, change **content/matter/abbreviations.tex** to fit your needs (follow the LaTeX syntax in there)
+- write the front matter (abstract, acknowledgements, abbreviations) and back matter (appendices) by adjusting the **.Rmd** files in the **content/00-frontmatter/** folder
+- for abbreviations, change **content/00-frontmatter/abbreviations.tex** to fit your needs (follow the LaTeX syntax in there)
 
-**.Rmd** files you don't want included in the body text must be given file names that begin with an underscore (e.g. **content/matter/\_abstract.Rmd** and **content/matter/\_acknowledgements.Rmd**). (Alternatively, specify manually in **\_bookdown.yml** which files should be merged into the body text.)
+**.Rmd** files you don't want included in the body text must be given file names that begin with an underscore (e.g. **content/00-frontmatter/\_abstract.Rmd** and **content/00-frontmatter/\_acknowledgements.Rmd**). (Alternatively, specify manually in **\_bookdown.yml** which files should be merged into the body text.)
 
 ### Building your entire thesis
 #### PDF output
@@ -164,9 +164,9 @@ bibliography: content/references.bib
 
 ### Cleaning up generated auxiliary files
 When you build to PDF via `make`, the auxillary files will be automatically be removed (to adjust how this is done, edit **Makefile**). \
-To clean them up manually, run `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/matter", "abbreviations.aux"))` in the R console.
+To clean them up manually, run `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/00-frontmatter", "abbreviations.aux"))` in the R console.
 
-To clean up files generated when knitting individual chapters, type 'make clean-knits' in the terminal. Or, if you're on Windows without `make` available, run the command `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/matter", "abbreviations.aux"))`.
+To clean up files generated when knitting individual chapters, type 'make clean-knits' in the terminal. Or, if you're on Windows without `make` available, run the command `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/00-frontmatter", "abbreviations.aux"))`.
 
 
 ## Customisations and extensions
