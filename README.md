@@ -6,25 +6,25 @@ Contents
 =================
 - [leedsdown](#leedsdown)
 - [Contents](#contents)
-- [Oxforddown](#oxforddown)
-  - [How to cite](#how-to-cite)
-  - [Video tutorials](#video-tutorials)
-  - [Requirements](#requirements)
-  - [How to use](#how-to-use)
-    - [Writing your thesis](#writing-your-thesis)
-    - [Building your entire thesis](#building-your-entire-thesis)
-      - [PDF output](#pdf-output)
-      - [Gitbook output](#gitbook-output)
-      - [BS4 book output](#bs4-book-output)
-      - [Word output](#word-output)
-    - [Building a single chapter](#building-a-single-chapter)
-    - [Cleaning up generated auxiliary files](#cleaning-up-generated-auxiliary-files)
-  - [Customisations and extensions](#customisations-and-extensions)
-  - [Limitations](#limitations)
-    - [Gotchas](#gotchas)
-    - [Output formats](#output-formats)
+  - [Oxforddown](#oxforddown)
+    - [How to cite](#how-to-cite)
+    - [Video tutorials](#video-tutorials)
+    - [Requirements](#requirements)
+    - [How to use](#how-to-use)
+      - [Writing your thesis](#writing-your-thesis)
+      - [Building your entire thesis](#building-your-entire-thesis)
+        - [PDF output](#pdf-output)
+        - [Gitbook output](#gitbook-output)
+        - [BS4 book output](#bs4-book-output)
+        - [Word output](#word-output)
+      - [Building a single chapter](#building-a-single-chapter)
+      - [Cleaning up generated auxiliary files](#cleaning-up-generated-auxiliary-files)
+    - [Customisations and extensions](#customisations-and-extensions)
+    - [Limitations](#limitations)
+      - [Gotchas](#gotchas)
+      - [Output formats](#output-formats)
 
-# Oxforddown
+## Oxforddown
 A template for writing an Oxford University thesis in R Markdown. The template uses the [bookdown](https://bookdown.org) R package together with the [OxThesis LaTeX template](https://github.com/mcmanigle/OxThesis), plus lots of inspiration from [thesisdown](https://github.com/ismayc/thesisdown).
 
 - Sample PDF output: [**docs/_main.pdf**](https://github.com/ulyngs/oxforddown/blob/master/docs/_main.pdf)
@@ -36,7 +36,7 @@ Examples of actual theses written with `oxforddown`:
 
 *NOTE: If you've used this template to write your thesis, drop me a line at ulrik.lyngs@cs.ox.ac.uk and I'll add a link showcasing it!*
 
-## How to cite
+### How to cite
 [![DOI](https://zenodo.org/badge/159745024.svg)](https://zenodo.org/badge/latestdoi/159745024)
 
 ```bibtex
@@ -51,7 +51,7 @@ Examples of actual theses written with `oxforddown`:
 }
 ```
 
-## Video tutorials
+### Video tutorials
 NOTE: as per v2.0, the introduction chapter no longer needs to be named \_introduction.Rmd! Apart from this, the videos should still be mostly right!
 
 See the video tutorials for how to use the template:
@@ -70,7 +70,7 @@ See the video tutorials for how to use the template:
 For how to write your content with the R Markdown syntax, read through the sample content.
 
 
-## Requirements
+### Requirements
 - LaTeX 
   - Option 1 (recommended): download and install the MacTeX distribution from [tug.org/mactex/](http://www.tug.org/mactex/) (~4 gigs)
   - Option 2: install [TinyTeX](https://yihui.name/tinytex/). Afterwards, manually install the LaTeX package 'cbfonts-fd' with `tinytex::tlmgr_install('cbfonts-fd')` (#11) - the other necessary LaTeX packages will be automatically installed for you by TinyTeX when you build to PDF for the first time.
@@ -95,11 +95,11 @@ For how to write your content with the R Markdown syntax, read through the sampl
     - (ii) open a command prompt and type `choco install make`
 
 
-## How to use
+### How to use
 - download the **ulyngs/oxforddown** repo as a zip
 - open **oxforddown.Rproj** in RStudio
 
-### Writing your thesis
+#### Writing your thesis
 - update the YAML header (the stuff at the top between '---') in **index.Rmd** with your name, college, etc.
 - write the individual chapters as **.Rmd** files in the root folder
 - write the front matter (abstract, acknowledgements, abbreviations) and back matter (appendices) by adjusting the **.Rmd** files in the **content/00-frontmatter/** folder
@@ -107,8 +107,8 @@ For how to write your content with the R Markdown syntax, read through the sampl
 
 **.Rmd** files you don't want included in the body text must be given file names that begin with an underscore (e.g. **content/00-frontmatter/\_abstract.Rmd** and **content/00-frontmatter/\_acknowledgements.Rmd**). (Alternatively, specify manually in **\_bookdown.yml** which files should be merged into the body text.)
 
-### Building your entire thesis
-#### PDF output
+#### Building your entire thesis
+##### PDF output
 - options
   1. *using `make`*: type 'make pdf' in the terminal (not the R console!) *or* click 'Build All' on the 'Build' tab
   2. knit the **index.Rmd** file *or* 
@@ -117,7 +117,7 @@ For how to write your content with the R Markdown syntax, read through the sampl
 
 ![](content/figures/sample-content/screenshots/compiled_pdf.png)
 
-#### Gitbook output
+##### Gitbook output
 - options
   1. in the terminal tab (not the R console!), type `make gitbook` *or*
   2. run `bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")` in the R console
@@ -127,14 +127,14 @@ For how to write your content with the R Markdown syntax, read through the sampl
 ![](content/figures/sample-content/screenshots/build_gitbook.png)
 ![](content/figures/sample-content/screenshots/compiled_gitbook.png)
 
-#### BS4 book output
+##### BS4 book output
 - for this to work, you must install (1) the latest development version of bookdown (`remotes::install_github('rstudio/bookdown')`), (2) the `downlit` package (`install.packages("downlit")`), (3) the `bslib` package (not on CRAN yet; install with `remotes::install_github("rstudio/bslib")`)
 - options
   1. in the terminal tab, type `make bs4book` *or*
   2. run `bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")` in the R console
 - the set of HTML files are stored in the **docs/** folder, and (for option 1) the front page (docs/index.html) is opened in a browser
 
-#### Word output
+##### Word output
 - options
   1. in the terminal tab, type 'make word'
   2. run `bookdown::render_book("index.Rmd", output_format = "bookdown::word_document2")` in the R console
@@ -142,7 +142,7 @@ For how to write your content with the R Markdown syntax, read through the sampl
 
 The Word output has no template behind it, and many things do not work (e.g. image rotation, highlighting corrections). **I encourage pull requests that optimise the Word output, e.g. by using tools from the [`officer`](https://github.com/davidgohel/officer) package.**
 
-### Building a single chapter
+#### Building a single chapter
 To knit an individual chapter without compiling the entire thesis:
 1. open the **.Rmd** file of a chapter
 2. add a YAML header specifying the output format(s) (e.g. `bookdown::word_document2` for a word document you might want to upload to Google Docs for feedback from collaborators)
@@ -162,19 +162,19 @@ bibliography: content/references.bib
 
 (Also, if you do not set the option `citation_package: biblatex`, which tell R Markdown to use BibLaTeX, you will get the error "! LaTeX Error: Environment CSLReferences undefined.")
 
-### Cleaning up generated auxiliary files
+#### Cleaning up generated auxiliary files
 When you build to PDF via `make`, the auxillary files will be automatically be removed (to adjust how this is done, edit **Makefile**). \
 To clean them up manually, run `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/00-frontmatter", "abbreviations.aux"))` in the R console.
 
 To clean up files generated when knitting individual chapters, type 'make clean-knits' in the terminal. Or, if you're on Windows without `make` available, run the command `file.remove(list.files(pattern = "*.(log|mtc|maf|aux|bcf|lof|lot|out|toc)"), here::here("content/00-frontmatter", "abbreviations.aux"))`.
 
 
-## Customisations and extensions
+### Customisations and extensions
 - for some of the common things you might want to do in your thesis, read through the sample content
 - for example, the newly added ['Customisations and extensions' chapter](https://ulyngs.github.io/oxforddown/customisations-and-extensions.html) (thanks @bmvandoren!) adds tips on how to include PDF pages from a published typeset article in your thesis, and more!
 
-## Limitations
-### Gotchas
+### Limitations
+#### Gotchas
 - don't use underscores (\_) in your YAML front matter or code chunk labels! (underscores have special meaning in LaTeX, so therefore you are likely to get an error, cf. https://yihui.org/en/2018/03/space-pain/)
   - bad YAML: `bibliography: bib_final.bib`
   - good YAML: `bibliography: bib-final.bib`
@@ -182,7 +182,7 @@ To clean up files generated when knitting individual chapters, type 'make clean-
   - good chunk label: `{r my-plot}`
 - if you want to deploy the gitbook via GitHub pages, then the /docs folder must contain a file called **.nojekyll**
 
-### Output formats
+#### Output formats
 - at the moment only PDF and HTML output have been properly implemented; I may improve on the Word output further down the line
 
 Enjoy!

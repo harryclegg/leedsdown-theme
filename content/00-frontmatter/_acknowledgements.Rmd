@@ -1,8 +1,8 @@
 These are some acknowledgements.
 
 \begin{flushright}
-\theAuthor{} \\
-\school{} \\
-\university{} \\
-\today{}
+\thesisauthor{} \\
+\thesisdepartment{} \\
+\thesisuniversity{} \\
+\thesisdate{}
 \end{flushright}

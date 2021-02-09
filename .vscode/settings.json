@@ -5,5 +5,13 @@
         "**/_bookdown_files": true,
         "**/_main_files": true,
         "**/.Rproj.user": true
-    }
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/out/**": true
+    },
+    "latex-workshop.latex.search.rootFiles.exclude": ["**"],
+    "latex-workshop.latex.autoBuild.run": "never"
 }

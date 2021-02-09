@@ -14,7 +14,8 @@ _bookdown_files
 _main_files
 .Rproj.user
 
-*.tex
+out/
+**/split/**
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

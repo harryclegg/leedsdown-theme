@@ -1,0 +1,354 @@
+% Packages
+
+\documentclass[a4paper,oneside,12pt]{templates/latex/leedsthesis}
+
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{rotating}
+\usepackage{pdfpages}
+
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{array}
+\usepackage{import}
+\usepackage[inline]{enumitem}
+\usepackage{hanging}
+
+\usepackage[normalem]{ulem}
+\usepackage{minitoc}
+\usepackage{quotchap}
+% UL 30 Nov 2018 pandoc puts lists in 'tightlist' command when no space between bullet points in Rmd file
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Positioning
+\usepackage{float}
+$if(nobind)$
+\setlength\oddsidemargin{\dimexpr(\paperwidth-\textwidth)/2 - 1in\relax}
+\setlength\evensidemargin{\oddsidemargin}
+$endif$
+
+% Colours and Tables
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{calc}
+\usepackage{ctable}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\newcommand{\unitcell}[2]{% \unitcell{text}{unit}
+\begin{tabular}{@{}c@{}}%
+    #1 \\ #2%
+\end{tabular}%
+}
+\newcolumntype{a}[3]{>{\columncolor{#2}}#1{#3}}
+\newcolumntype{z}[2]{>{\columncolor{#2}}#1}
+\newcolumntype{?}{!{\vrule width 1.5pt}}
+
+% Bibliography
+\usepackage[style=ieee]{biblatex}
+\newcommand*{\bibtitle}{$bibliography-heading-in-pdf$}
+
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+
+% Correction Highlighting
+\usepackage{soul}
+\definecolor{correctioncolor}{HTML}{$correction-col$}
+\sethlcolor{correctioncolor}
+\newcommand{\ctext}[3][RGB]{%
+    \begingroup
+    \definecolor{hlcolor}{#1}{#2}\sethlcolor{hlcolor}%
+    \hl{#3}%
+    \endgroup
+}
+\soulregister\ref7
+\soulregister\cite7
+\soulregister\autocite7
+\soulregister\textcite7
+\soulregister\pageref7
+
+% UL 1 Dec 2018, fix to include code in shaded environments
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% SI Units
+\usepackage{textgreek}
+\usepackage{nicefrac}
+\usepackage[binary-units=true]{siunitx}
+\DeclareSIUnit{\sample}{S}
+\DeclareSIUnit{\bitshort}{b}
+\DeclareSIUnit{\sicycle}{cycle}
+\DeclareSIUnit{\sicycles}{cycles}
+\DeclareSIUnit{\channel}{ch}
+\DeclareSIUnit{\ounce}{oz}
+\DeclareSIUnit{\french}{Fr}
+\DeclareSIQualifier{\peak}{peak}
+\DeclareSIQualifier{\peakpeak}{pp}
+\DeclareSIUnit{\unitless}{\relax}
+
+% Dark mode >:)
+\let\oldincludegraphics\includegraphics
+\newif\ifdarkmode
+$if(dark-mode)$
+    \darkmodetrue
+    \pagecolor{darkgray}
+    \color{white}
+    \definecolor{formalshade}{rgb}{0.23,0.23,0.39}
+    \definecolor{formalstripe}{rgb}{0.95,0.95,1}
+    \definecolor{roadmapred}{RGB}{168,133,136}
+    \definecolor{roadmapgreen}{RGB}{148,170,150}
+    \newcommand{\linkcolour}{SkyBlue}
+    \renewcommand{\includegraphics}[2][]{{\setlength{\fboxsep}{0pt}\colorbox{white}{\oldincludegraphics[#1]{#2}}}}
+$else$
+    \darkmodefalse
+    \definecolor{formalshade}{rgb}{0.95,0.95,1}
+    \definecolor{formalstripe}{rgb}{0.23,0.23,0.39}
+    \definecolor{roadmapred}{RGB}{247,196,200}
+    \definecolor{roadmapgreen}{RGB}{217,249,220}
+    \newcommand{\linkcolour}{MidnightBlue}
+$endif$
+
+% Thesis Details
+\newcommand{\thesistitle}{$title$}
+\newcommand{\thesisauthor}{$author$}
+\newcommand{\thesisemail}{$email$}
+\newcommand{\thesisdepartment}{$department$}
+\newcommand{\thesisuniversity}{$university$}
+\newcommand{\thesisrequirements}{$thesis-requirements$}
+\newcommand{\thesisdegree}{$thesis-degree$}
+\newcommand{\thesisdate}{$thesis-date$}
+
+\title{\thesistitle}
+\degree{\thesisdegree}
+\degreedate{\thesisdate}
+\crest{\oldincludegraphics[width=35mm]{templates/crest.pdf}}
+\collegeordept{\thesisdepartment}
+\university{\thesisuniversity}
+
+\ifpdf
+    \author{\Large \thesisauthor}
+    \pdfcatalog {/PageMode (/UseOutlines) /OpenAction (fitbh)}
+\else
+    \author{\thesisauthor}
+\fi
+
+% Watermark config
+\hbadness=10000
+\hfuzz=50pt
+\usepackage{templates/latex/style/watermark}
+
+% Hyperlink display config
+$if(hyperlinks)$
+
+    \hypersetup{
+        pdfauthor={\thesisauthor (\thesisemail)},%
+        pdftitle={\thesistitle},%
+        pdfsubject={PhD Thesis for \thesisauthor},%
+        pdfkeywords={PhD, Thesis},%
+        pdfproducer={LaTeX},%
+        pdfcreator={pdfLaTeX},%
+        %
+        colorlinks   = true, %Colours links instead of ugly boxes
+        urlcolor     = \linkcolour, %Colour for external hyperlinks
+        linkcolor    = \linkcolour, %Colour of internal links
+        citecolor    = \linkcolour %Colour of citations
+    }
+  
+    % Create an environment that rotates a page in the PDF output. This does NOT rotate
+    % the content so header/footer remain correct for a portrait display, it simply sets
+    % the page display mode
+    \newenvironment{rotatepage}%
+        {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}}%
+        {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}%
+
+$else$
+
+    \hypersetup{
+        pdfauthor={\thesisauthor \thesisemail},%
+        pdftitle={\thesistitle},%
+        pdfsubject={PhD Thesis for \thesisauthor},%
+        pdfkeywords={PhD, Thesis},%
+        pdfproducer={LaTeX},%
+        pdfcreator={pdfLaTeX}
+        colorlinks   = true, %Colours links instead of ugly boxes
+    }
+    \AtBeginDocument{\NoHyper}
+    \def\noToCPageLink{}
+    
+    % For final output, the rotate-page environment does not actually rotate the page
+    % to avoid binding issues. Instead it simply keeps the \clearpage and \pagebreak
+    % commands to make sure the overall layout is unaffected
+    \newenvironment{rotatepage}%
+        {\clearpage\pagebreak[4]}%
+        {\clearpage\pagebreak[4]}%
+
+$endif$
+
+% Rotate sideways figure/table depending on the current "rotate page" environment mode
+\BeforeBeginEnvironment{sidewaystable}{\begin{rotatepage}}
+\AfterEndEnvironment{sidewaystable}{\end{rotatepage}}
+\BeforeBeginEnvironment{sidewaysfigure}{\begin{rotatepage}}
+\AfterEndEnvironment{sidewaysfigure}{\end{rotatepage}}
+
+% Include package to make 22nd, 53rd, 4th, 11th, 71st, etc.
+\usepackage[super,negative]{nth} % where option [super] gives superscript 'nth'
+
+% Prevent floats from appearing outside their section and subsection
+\usepackage[section]{placeins}
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+%If an acronyms file exists, include the glossaries package and acronyms file
+\usepackage[toc,acronym,shortcuts]{glossaries} 
+\input{content/00-frontmatter/abbreviations.tex}
+\makeglossaries
+\glsenableentrycount
+
+% Use these in titles and figure captions rather than \gls, \Gls, \glspl, or \Glspl to avoid issues with bookmarks. This will give the fully expanded version rather than the acronym.
+\let\glstitle\glsentrylong
+\let\glstitlepl\glsentrylongpl
+\let\glstitleacr\glsentryshort
+\let\glstitleacrpl\glsentryshortpl
+
+% Highlighted quote box environment
+\usepackage{framed}
+\usepackage[strict]{changepage}
+
+\newenvironment{formal}{%
+    \def\FrameCommand{%
+        \hspace{1pt}%
+        {\color{formalstripe}\vrule width 2pt}%
+        {\color{formalshade}\vrule width 4pt}%
+        \colorbox{formalshade}%
+    }%
+    \MakeFramed{\advance\hsize-\width\FrameRestore}%
+    \noindent\hspace{-4.55pt}% disable indenting first paragraph
+    \begin{adjustwidth}{}{7pt}%
+    \vspace{2pt}\vspace{2pt}%
+}
+{%
+    \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+% Code Handling
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\renewcommand\lstlistlistingname{List of Code Listings}
+\usepackage[lighttt]{lmodern}
+
+% Caption Handling
+\usepackage{caption}
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\renewcommand\thesubtable{(\alph{subtable})}
+\DeclareCaptionLabelFormat{continued}{#1~#2 (Cont.)}
+\captionsetup[ContinuedFloat]{labelformat=continued}
+\captionsetup{font=normalsize}
+
+\newcommand{\phantomsubfloat}[1]{
+    {% apply caption setup only temporarily
+        \captionsetup[subfigure]{labelformat=empty}
+        \subfloat[][]{#1}
+    }%
+}
+
+%%
+%% Start of Document
+%%
+\begin{document}
+%\language{english}
+
+\renewcommand\baselinestretch{1.2}
+\baselineskip=18pt plus 1pt
+
+% Code Formatting Styles for listings
+\input{templates/latex/style/listingStyles}
+
+% Title and Front Matter
+
+\maketitle
+%set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\renewcommand\thesubsubsection{\thesubsection.\Alph{subsubsection}} 
+
+% This redefines the \paragraph command to have a newline after it.
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
+
+% Start of Front Matter
+\frontmatter
+
+$if(declaration)$
+    \begin{declaration}
+        $declaration$
+    \end{declaration}
+$endif$
+
+$if(dedication)$
+    \begin{dedication}
+        $dedication$
+    \end{dedication}
+$endif$
+
+$if(acknowledgement)$
+    \begin{acknowledgement}
+        $acknowledgement$
+    \end{acknowledgement}
+$endif$
+
+$if(abstract)$
+    \begin{abstractslong}
+        $abstract$
+    \end{abstractslong}
+$endif$
+
+\mainmatter
+
+% Pandoc converted full body text
+$body$
+
+% References
+\setlength{\baselineskip}{0pt}
+{\renewcommand*\MakeUppercase[1]{#1}%
+\printbibliography[heading=bibintoc,title={\bibtitle}]}
+
+\end{document}

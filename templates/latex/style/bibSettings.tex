@@ -1,0 +1,78 @@
+% Allows loading of chapterbib and multibib simultaneously
+%
+% See: https://tex.stackexchange.com/questions/55801/is-it-possible-to-use-bibunits-and-multibib-simultaneously
+%
+% spellcheck-off
+%
+
+\def\mainbibname{Chapter References}
+
+\makeatletter
+\let\orig@bibliography\bibliography
+\let\orig@thebibliography\thebibliography
+\let\orig@include\include
+\let\orig@cite\cite
+\let\orig@nocite\nocite
+\let\orig@bibliographystyle\bibliographystyle
+\makeatother
+
+\usepackage{multibib}
+
+\newcites{mypapers}{Authored Papers}
+\newcites{copapers}{Co-Authored Papers}
+\newcites{intro}{\mainbibname}
+
+\makeatletter
+\let\mbb@bibliography\bibliography
+\let\mbb@thebibliography\thebibliography
+
+\let\bibliography\orig@bibliography
+\let\thebibliography\orig@thebibliography
+
+\makeatother
+
+\usepackage{chapterbib}
+
+\makeatletter
+
+\let\cpb@bibliography\bibliography
+\let\cpb@thebibliography\thebibliography
+\let\cpb@bibliographystyle\bibliographystyle
+\let\cpb@include\include
+\let\cpb@cite\cite
+\let\cpb@nocite\nocite
+
+\def\bibmulti{% switch to multibib-mode
+    \let\bibliography\mbb@bibliography%
+    \let\thebibliography\mbb@thebibliography%
+    \let\bibliographystyle\orig@bibliographystyle%
+    \let\include\orig@include%
+    \let\cite\orig@cite%
+    \let\nocite\orig@nocite%
+    \renewcommand\bibsection{\section*{\bibname}} % And update bib-section to appear at section level rather than chapter level
+    \let\noToCbibliographyintro\bibliographyintro
+    \renewcommand\bibliographyintro{%
+        \phantomsection
+        \addcontentsline{toc}{section}{\mainbibname}% Adds References to contents page
+        \noToCbibliographyintro
+    }
+}
+
+\def\bibchapter{% switch to 'chapterbib'-mode
+    \let\bibliography\cpb@bibliography
+    \let\thebibliography\cpb@thebibliography
+    \let\bibliographystyle\cpb@bibliographystyle
+    \let\include\cpb@include
+    \let\cite\cpb@cite
+    \let\nocite\cpb@nocite
+    \renewcommand{\bibname}{\mainbibname} % Renew \bibname for per-chapter references initially
+    \renewcommand\bibsection{\section*{\bibname}} % And update bib-section to appear at section level rather than chapter level
+    \let\noToCbibliography\bibliography
+    \renewcommand\bibliography{%
+        \phantomsection
+        \addcontentsline{toc}{section}{\mainbibname}% Adds References to contents page
+        \noToCbibliography
+    }
+}
+\makeatother
+

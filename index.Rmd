@@ -6,12 +6,12 @@ title: |
   A Leeds University Thesis \
   Template for R Markdown
 author: Your Name
-school: Your School or Faculty
+department: Your School or Faculty
 university: University of Leeds
 university-logo: templates/crest.pdf
-submitted-text: A thesis submitted for the degree of
-degree: Doctor of Philosophy
-degreedate: February 2021
+thesis-requirements: Submitted in accordance with the requirements for the degree of
+thesis-degree: Doctor of Philosophy
+thesis-date: February 2021
 abstract: |
   `r paste(readLines("content/00-frontmatter/_abstract.Rmd"), collapse = '\n  ')`
 acknowledgements: |
@@ -19,38 +19,22 @@ acknowledgements: |
 dedication: For Your Dedicatee
 abbreviations: "content/00-frontmatter/abbreviations" # path to .tex file with abbreviations
 
-#######################
-## bibliography path ##
-#######################
+## bibliography
 bibliography: content/references.bib
 bibliography-heading-in-pdf: References
+csl: templates/web/ieee.csl
 
-## correction highlighting ##
+## correction highlighting
 corrections: true
+correction-col: CCCCFF
 
-## binding / margins ##
-page-layout: nobind #'nobind' for equal margins (PDF output), 'twoside' for two-sided binding (mirror margins and blank pages), leave blank for one-sided binding (left margin > right margin)
+## page layout
+nobind: true
+linespacing: 22pt plus2pt # 22pt is official for submission & library copies
+frontmatter-linespacing: 17pt plus1pt minus1pt #spacing in roman-numbered pages (acknowledgments, table of contents, etc.)
 
-## position of page numbers ##
-ordinary-page-number-foot-or-head: foot #'foot' puts page number in footer, 'head' in header
-ordinary-page-number-position: C  #C = center, R = right, L = left. If page layout is 'twoside', O = odd pages and E = even pages. E.g. RO,LE puts the page number to the right on odd pages and left on even pages
-chapter-page-number-foot-or-head: foot #you may want it to be different on the chapter pages
-chapter-page-number-position: C
-
-## position of running header ##
-running-header: true #indicate current chapter/section in header?
-running-header-foot-or-head: head
-running-header-position-leftmark: LO #marks the chapter. If layout is 'nobind', only this is used.
-running-header-position-rightmark: RE  #marks the section.
-
-draft-mark: false # add a DRAFT mark?
-draft-mark-foot-or-head: foot ##'foot' = in footer, 'head' = in header
-draft-mark-position: C
-
-## section numbering ##
+## tables of content
 section-numbering-depth: 2 # to which depth should headings be numbered?
-
-## tables of content ##
 toc-depth: 1 # to which depth should headings be included in table of contents?
 lof: true # include list of figures in front matter?
 lot: true # include list of tables in front matter?
@@ -58,41 +42,33 @@ mini-toc: true  # include mini-table of contents at start of each chapter? (this
 mini-lot: false  # include mini-list of tables by start of each chapter?
 mini-lof: false  # include mini-list of figures by start of each chapter?
 
-## bibliography style ##
-bib-humanities: false   # true to format references as author-year - false as numbers
-doi-in-bibliography: true # true to show DOI's in the bibliography
-
-## code block spacing ##
+## code block spacing
 space-before-code-block: 10pt
 space-after-code-block: 8pt
 
-## linespacing ##
-linespacing: 22pt plus2pt # 22pt is official for submission & library copies
-frontmatter-linespacing: 17pt plus1pt minus1pt #spacing in roman-numbered pages (acknowledgments, table of contents, etc.)
-
-### other stuff ###
-abstractseparate: true  # include front page w/ abstract for examination schools?
-hidelinks: true # false to highlight clickable links with a colored border
+## other stuff
+hyperlinks: true # false to highlight clickable links with a colored border
+dark-mode: false
 
 #####################
 ## output options  ##
 #####################
 output:
   bookdown::pdf_book:
-    template: templates/template.tex
+    template: templates/latex/template.tex
     keep_tex: true
     citation_package: biblatex  
     pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
   bookdown::bs4_book: 
     css: 
-      - templates/bs4_style.css
-      - templates/corrections.css # remove to stop highlighting corrections
+      - templates/web/bs4_style.css
+      - templates/web/corrections.css # remove to stop highlighting corrections
     theme:
       primary: "#6D1919"
-    repo: https://github.com/ulyngs/oxforddown
+    # repo: https://github.com/<github-username>/<github-repo>
     pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
   bookdown::gitbook:
-    css: templates/style.css
+    css: templates/web/style.css
     config:
       sharing:
         facebook: false
@@ -130,5 +106,5 @@ If you need to create your own additional chunk options, edit the file scripts/c
 -->
 
 <!-- This chunk includes the front page content in HTML output -->
-```{r ebook-welcome, child = 'content/00-frontmatter/_welcome-ebook.Rmd', eval=knitr::is_html_output()}
+```{r ebook-welcome, child = 'content/00-frontmatter/_web-welcome.Rmd', eval=knitr::is_html_output()}
 ```
