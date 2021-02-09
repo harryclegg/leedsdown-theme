@@ -1,30 +1,16 @@
 # leedsdown
 
-A Rmarkdown thesis template based on Oxforddown by [@ulyngs](https://github.com/ulyngs).
+A Rmarkdown thesis template based on [ulyngs/oxforddown](https://github.com/ulyngs/oxforddown).
 
-Contents (parent project README)
-=================
-- [leedsdown](#leedsdown)
-- [Contents](#contents)
-  - [Oxforddown](#oxforddown)
-    - [How to cite](#how-to-cite)
-    - [Video tutorials](#video-tutorials)
-    - [Requirements](#requirements)
-    - [How to use](#how-to-use)
-      - [Writing your thesis](#writing-your-thesis)
-      - [Building your entire thesis](#building-your-entire-thesis)
-        - [PDF output](#pdf-output)
-        - [Gitbook output](#gitbook-output)
-        - [BS4 book output](#bs4-book-output)
-        - [Word output](#word-output)
-      - [Building a single chapter](#building-a-single-chapter)
-      - [Cleaning up generated auxiliary files](#cleaning-up-generated-auxiliary-files)
-    - [Customisations and extensions](#customisations-and-extensions)
-    - [Limitations](#limitations)
-      - [Gotchas](#gotchas)
-      - [Output formats](#output-formats)
+Heavily modified to use a more University of Leeds friendly template, and to remove some of the unwanted features. Also, a major cleanup of the class/latex template files.
 
-## Oxforddown
+It's not at all compatible with the original oxforddown template, but this would never have been made if not for the hard work of ulyngs. So I extend a huge thank you to them. See the *How to cite* section below to acknowledge their efforts if you use this template.
+
+## Usage
+
+This repository is intended to be used as a submodule. See [harryclegg/leedsdown](https://github.com/harryclegg/leedsdown) for a template repository, off which you should base your thesis.
+
+## Parent Project: Oxforddown
 A template for writing an Oxford University thesis in R Markdown. The template uses the [bookdown](https://bookdown.org) R package together with the [OxThesis LaTeX template](https://github.com/mcmanigle/OxThesis), plus lots of inspiration from [thesisdown](https://github.com/ismayc/thesisdown).
 
 - Sample PDF output: [**docs/_main.pdf**](https://github.com/ulyngs/oxforddown/blob/master/docs/_main.pdf)
