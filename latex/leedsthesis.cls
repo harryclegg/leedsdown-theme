@@ -4,7 +4,7 @@
 % Adapted from @TCWORLD by @harryclegg, Feb 2021
 
 % Identification %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesClass{template/latex/leedsthesis}[]
+\ProvidesClass{theme/latex/leedsthesis}[]
 
 % Base class %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
