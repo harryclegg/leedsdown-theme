@@ -23,7 +23,7 @@ abbreviations: "content/00-frontmatter/abbreviations" # path to .tex file with a
 ## bibliography
 bib-files: content/references.bib
 # bib-pdf-heading: References           # default: References
-csl: template/web/ieee.csl
+csl: theme/web/ieee.csl
 
 ## correction highlighting
 # corrections-pdf-disabled: true        # true or commented out
@@ -43,20 +43,20 @@ document-dark-mode: false
 #####################
 output:
   bookdown::pdf_book:
-    template: template/latex/template.tex
+    template: theme/latex/template.tex
     keep_tex: true
     citation_package: biblatex  
-    pandoc_args: "--lua-filter=template/scripts/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=theme/scripts/colour_and_highlight.lua"
   bookdown::bs4_book: 
     css: 
-      - template/web/bs4_style.css
-      - template/web/corrections.css # remove to stop highlighting corrections
+      - theme/web/bs4_style.css
+      - theme/web/corrections.css # remove to stop highlighting corrections
     theme:
       primary: "#6D1919"
     # repo: https://github.com/<github-username>/<github-repo>
-    pandoc_args: "--lua-filter=template/scripts/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=theme/scripts/colour_and_highlight.lua"
   bookdown::gitbook:
-    css: template/web/style.css
+    css: theme/web/style.css
     config:
       sharing:
         facebook: false
@@ -78,12 +78,12 @@ knit: (function(input, ...) {bookdown::render_book(input, output_format = "bookd
 
 
 ```{r install_packages, include=FALSE}
-source('template/scripts/install_packages_if_missing.R')
+source('theme/scripts/install_packages_if_missing.R')
 ```
 
 ```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
-source('template/scripts/create_chunk_options.R')
-source('template/scripts/wrap_lines.R')
+source('theme/scripts/create_chunk_options.R')
+source('theme/scripts/wrap_lines.R')
 ```
 
 <!--
