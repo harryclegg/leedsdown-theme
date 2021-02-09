@@ -2,7 +2,7 @@
 
 A Rmarkdown thesis template based on Oxforddown by @ulyngs.
 
-Contents
+Contents (parent project README)
 =================
 - [leedsdown](#leedsdown)
 - [Contents](#contents)
