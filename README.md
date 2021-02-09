@@ -1,6 +1,6 @@
 # leedsdown
 
-A Rmarkdown thesis template based on Oxforddown by [@ulyngs](github.com/ulyngs).
+A Rmarkdown thesis template based on Oxforddown by [@ulyngs](https://github.com/ulyngs).
 
 Contents (parent project README)
 =================
