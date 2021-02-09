@@ -33,12 +33,6 @@ csl: template/web/ieee.csl
 # document-for-print: true              # true or commented out
 document-dark-mode: false
 # document-pdf-bind: true               # true or commented out
-global-table-of-contents: true
-global-list-of-figures: true
-global-list-of-tables: true
-chapter-table-of-contents: true
-chapter-list-of-figures: false
-chapter-list-of-tables: false
 
 # spacing modifiers
 # spacing-codeblock-pre: 10pt

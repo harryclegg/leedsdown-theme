@@ -1,8 +1,0 @@
-These are some acknowledgements.
-
-\begin{flushright}
-\thesisauthor{} \\
-\thesisdepartment{} \\
-\thesisuniversity{} \\
-\thesisdate{}
-\end{flushright}
