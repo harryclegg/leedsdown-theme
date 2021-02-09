@@ -1,7 +1,7 @@
 ---
 output:
-  #bookdown::html_document2: default
-  #bookdown::word_document2: default
+  bookdown::html_document2: default
+  bookdown::word_document2: default
   bookdown::pdf_document2:
     template: templates/brief_template.tex
     citation_package: biblatex
@@ -10,7 +10,6 @@ bibliography: content/references.bib
 ---
 
 # Tables {#tables} 
-\minitoc <!-- this will include a mini table of contents-->
 
 ## Making LaTeX tables play nice
 Dealing with tables in LaTeX can be painful.
@@ -34,12 +33,10 @@ head(mtcars) %>%
 
 Compare this to the default style, which looks terrible:
 
-
 ```{r}
 head(mtcars) %>% 
   kable()
 ```
-
 
 ### If your table is too wide
 You might find that your table expands into the margins of the page, like the tables above.
@@ -54,7 +51,6 @@ head(mtcars) %>%
 ```
 
 This scales down the table to fit the page width.
-
 
 ### If your table is too long
 If your table is too long to fit on a single page, set `longtable = TRUE` in the `kable` function to split the table across multiple pages.
@@ -84,42 +80,4 @@ To adjust the font size, use kableExtra's `font_size` option:
 a_long_table %>% 
   kable(booktabs = TRUE, longtable = TRUE) %>% 
   kable_styling(font_size = 9, latex_options = "repeat_header")
-```
-
-To put the table in landscape mode, use kableExtra's `landscape` function:
-
-```{r}
-a_long_table %>% 
-  kable(booktabs = TRUE, longtable = TRUE) %>% 
-  kable_styling(latex_options = "repeat_header") %>% 
-  landscape()
-```
-
-### Max power: manually adjust the raw LaTeX output {#max-power}
-For total flexibility, you can adjust the raw LaTeX output from `kable`/`kableExtra` that generates the table.
-Let us consider how we would do this for the example of adjusting the font size if our table is too wide:
-Latex has a bunch of standard commands that set an approximate font size, as shown below in Figure \@ref(fig:latex-font-sizing).
-
-```{r latex-font-sizing, echo=FALSE, out.width='50%', fig.cap="Font sizes in LaTeX", fig.pos="H", fig.align='center'}
-knitr::include_graphics("content/figures/sample-content/latex_font_sizes.png")
-```
-
-You could use these to manually adjust the font size in your longtable in two steps:
-
-1. Wrap the longtable environment in, e.g., a `scriptsize` environment, by doing a string replacement in the output from `kable`/`kableExtra`
-2. Add the attributes that make R Markdown understand that the table is a table (it seems R drops these when we do the string replacement)
-
-```{r}
-our_adjusted_table <- a_long_table %>% 
-  kable(booktabs = TRUE, longtable = TRUE) %>% 
-  kable_styling(latex_options = "repeat_header") %>% 
-  # wrap the longtable in a tiny environment
-  str_replace('\\\\begin\\{longtable\\}', 
-              '\\\\begin\\{scriptsize\\}\n\\\\begin\\{longtable\\}') %>%
-  str_replace('\\\\end\\{longtable\\}', 
-              '\\\\end\\{longtable\\}\n\\\\end\\{scriptsize\\}')
-
-#add attributes to make R Markdown treat this as a kable LaTeX table again
-our_adjusted_table %>% 
-  structure(format = "latex", class = "knitr_kable")
 ```

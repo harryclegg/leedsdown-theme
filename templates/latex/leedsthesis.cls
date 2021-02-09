@@ -228,6 +228,27 @@
 \begin{quote}}
 {\end{quote}\end{alwayssingle}}
 
+% JEM: for highlighting corrections
+\newlength{\mccurrentbaselineskip}
+\newlength{\mccurrentparskip}
+\newlength{\mccurrentparindent}
+\newif\ifcorrections
+\newif\ifm@csection
+\m@csectionfalse
+\correctionsfalse
+
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\colorlet{shadecolor}{blue!20}
+
+\usepackage{framed}
+\OuterFrameSep=-9pt
+\newenvironment{correction}
+{\ifcorrections\colorlet{shadecolor}{blue!20}\if@nobreak\m@csectiontrue\fi\begin{shaded}\ifm@csection\noindent\ignorespaces\fi\fi}
+{\ifcorrections\end{shaded}\m@csectionfalse\ifx\@captype\@undefined\@nobreakfalse\fi\fi}
+
+\usepackage{soul}
+\sethlcolor{shadecolor}
+\newcommand{\mccorrect}[1]{\ifcorrections\hl{#1}\else#1\fi}
 
 
 % ACKNOWLEDGEMENTS

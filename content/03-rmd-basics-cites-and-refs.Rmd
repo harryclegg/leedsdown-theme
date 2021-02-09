@@ -169,3 +169,5 @@ I suspect some great solution will be developed in the not-to-distant future, pr
 - *R Markdown: The Definitive Guide* - <https://bookdown.org/yihui/rmarkdown/>
 
 - *R for Data Science* - <https://r4ds.had.co.nz>
+
+\printbibliography[segment=\therefsegment,heading=subbibliography]

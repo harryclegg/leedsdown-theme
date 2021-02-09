@@ -17,6 +17,7 @@
 \usepackage[normalem]{ulem}
 \usepackage{minitoc}
 \usepackage{quotchap}
+
 % UL 30 Nov 2018 pandoc puts lists in 'tightlist' command when no space between bullet points in Rmd file
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -29,43 +30,45 @@ $if(nobind)$
 $endif$
 
 % Colours and Tables
-\usepackage[table,xcdraw,dvipsnames]{xcolor}
 \usepackage{colortbl}
 \usepackage{calc}
-\usepackage{ctable}
-\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
-\newcommand{\unitcell}[2]{% \unitcell{text}{unit}
-\begin{tabular}{@{}c@{}}%
-    #1 \\ #2%
-\end{tabular}%
-}
-\newcolumntype{a}[3]{>{\columncolor{#2}}#1{#3}}
-\newcolumntype{z}[2]{>{\columncolor{#2}}#1}
-\newcolumntype{?}{!{\vrule width 1.5pt}}
+\usepackage{longtable}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage{booktabs}
 
 % Bibliography
-\usepackage[style=ieee]{biblatex}
+\usepackage[style=ieee,
+    refsegment=chapter,
+    defernumbers=true
+]{biblatex}
 \newcommand*{\bibtitle}{$bibliography-heading-in-pdf$}
 
 $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
 
-% Correction Highlighting
-\usepackage{soul}
-\definecolor{correctioncolor}{HTML}{$correction-col$}
+%UL use soul package for correction highlighting
+\usepackage{color, soul}
+\usepackage{xcolor}
+\definecolor{correctioncolor}{HTML}{CCCCFF}
 \sethlcolor{correctioncolor}
 \newcommand{\ctext}[3][RGB]{%
-    \begingroup
-    \definecolor{hlcolor}{#1}{#2}\sethlcolor{hlcolor}%
-    \hl{#3}%
-    \endgroup
+  \begingroup
+  \definecolor{hlcolor}{#1}{#2}\sethlcolor{hlcolor}%
+  \hl{#3}%
+  \endgroup
 }
 \soulregister\ref7
 \soulregister\cite7
 \soulregister\autocite7
 \soulregister\textcite7
 \soulregister\pageref7
+
+$if(corrections)$
+    \correctionstrue
+$endif$
+
 
 % UL 1 Dec 2018, fix to include code in shaded environments
 \usepackage{color}
@@ -195,7 +198,7 @@ $if(hyperlinks)$
     % Create an environment that rotates a page in the PDF output. This does NOT rotate
     % the content so header/footer remain correct for a portrait display, it simply sets
     % the page display mode
-    \newenvironment{rotatepage}%
+    \newenvironment{landscape}%
         {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}}%
         {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}%
 
@@ -216,17 +219,20 @@ $else$
     % For final output, the rotate-page environment does not actually rotate the page
     % to avoid binding issues. Instead it simply keeps the \clearpage and \pagebreak
     % commands to make sure the overall layout is unaffected
-    \newenvironment{rotatepage}%
+    \newenvironment{landscape}%
         {\clearpage\pagebreak[4]}%
         {\clearpage\pagebreak[4]}%
 
 $endif$
 
 % Rotate sideways figure/table depending on the current "rotate page" environment mode
-\BeforeBeginEnvironment{sidewaystable}{\begin{rotatepage}}
-\AfterEndEnvironment{sidewaystable}{\end{rotatepage}}
-\BeforeBeginEnvironment{sidewaysfigure}{\begin{rotatepage}}
-\AfterEndEnvironment{sidewaysfigure}{\end{rotatepage}}
+\BeforeBeginEnvironment{sidewaystable}{\begin{landscape}}
+\AfterEndEnvironment{sidewaystable}{\end{landscape}}
+\BeforeBeginEnvironment{sidewaysfigure}{\begin{landscape}}
+\AfterEndEnvironment{sidewaysfigure}{\end{landscape}}
+
+% Include other PDFs
+\usepackage{pdfpages} 
 
 % Include package to make 22nd, 53rd, 4th, 11th, 71st, etc.
 \usepackage[super,negative]{nth} % where option [super] gives superscript 'nth'
