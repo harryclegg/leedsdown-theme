@@ -4,27 +4,13 @@
 #########################################
 output:
   bookdown::pdf_document2:
-    template: templates/brief_template.tex
+    template: template/brief_template.tex
     citation_package: biblatex
   bookdown::html_document2: default
   bookdown::word_document2: default
 documentclass: book
 bibliography: content/references.bib
 ---
-
-<!-- ```{block type='savequote', quote_author='(ref:cicero-quote)', include=knitr::is_latex_output()}
-Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-
-There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...
-```
-(ref:cicero-quote) --- Cicero's *de Finibus Bonorum et Malorum*. -->
-
-<!-- 
-Notes for adding an opening quote in PDF output:
-i) add the reference for the quote with the chunk option quote_author="my author name",
-ii) include=knitr::opts_knit$get('rmarkdown.pandoc.to') == 'latex' means that these quotes are only included when output is latex (in HTML output, it would appear by the end of the previous page)
-iii) You can't use markdown syntax inside chunk options, so if you want to e.g. italicise a book name in the quote reference use a 'text reference': Create a named piece of text with '(ref:label-name) My text', then link to this in the chunk option with quote_author='(ref:label-name)'
--->
 
 # R Markdown basics {#rmd-basics}
 \minitoc <!-- this will include a mini table of contents-->
@@ -179,7 +165,6 @@ The syntax of a code chunk is shown in Figure \@ref(fig:chunk-parts).
 library(tidyverse)
 knitr::include_graphics("content/figures/sample-content/chunk-parts.png")
 ```
-
 Common chunk options include (see e.g. [bookdown.org](https://bookdown.org/yihui/rmarkdown/r-code.html)):
 
 - `echo`: whether or not to display code in knitted output
@@ -274,8 +259,8 @@ knitr::include_graphics("content/figures/sample-content/crest.png")
 ```
 
 As anyone who has tried to manually play around with the placement of figures in a Word document knows, this can have lots of side effects with extra spacing on other pages, etc.
-Therefore, it is not generally a good idea to do this - only do it when you really need to ensure that an image follows directly under text where you refer to it (in this document, I needed to do this for Figure \@ref(fig:latex-font-sizing) in section \@ref(max-power)).
-For more details, read the relevant section of the [R Markdown Cookbook]https://bookdown.org/yihui/rmarkdown-cookbook/figure-placement.html).
+Therefore, it is not generally a good idea to do this - only do it when you really need to ensure that an image follows directly under text where you refer to it.
+For more details, read the relevant section of the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/figure-placement.html).
 
 
 ### Inline code

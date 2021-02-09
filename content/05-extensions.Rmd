@@ -3,18 +3,18 @@ output:
   #bookdown::html_document2: default
   #bookdown::word_document2: default
   bookdown::pdf_document2: 
-    template: templates/brief_template.tex
+    template: template/brief_template.tex
     citation_package: biblatex
 documentclass: book
 bibliography: content/references.bib
 ---
-
+<!-- 
 ```{block type='savequote', include=knitr::is_latex_output(), quote_author='(ref:darwin-quote)'}
 There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.
 
 ```
 (ref:darwin-quote) --- Charles Darwin [@Darwin1859]
-  
+   -->
 # Customisations and extensions
 <!-- \minitoc this will include a mini table of contents-->
 
@@ -54,7 +54,7 @@ For larger chunks, like this paragraph or indeed entire figures, you can use the
 To turn off correction highlighting, go to the YAML header of **index.Rmd**, then:
 
 - PDF output: set `corrections: false` \
-- HTML output: remove or comment out `- templates/corrections.css`
+- HTML output: remove or comment out `- template/corrections.css`
 
 ## Chapter bibliographies
 

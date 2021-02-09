@@ -1,0 +1,254 @@
+% Packages
+
+\documentclass[a4paper,oneside,12pt]{template/latex/leedsthesis}
+
+% Bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(bib-pdf-heading)$
+    \newcommand*{\bibtitle}{$bib-pdf-heading$}
+$else$
+    \newcommand*{\bibtitle}{References}
+$endif$
+
+$for(bib-files)$
+    \addbibresource{$bib-files$}
+$endfor$
+
+%% Corrections %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Enable corrections
+$if(corrections-pdf-disabled)$
+    \correctionsfalse
+$else$
+    \correctionstrue
+$endif$
+
+% Set corrections colour
+$if(corrections-col)$
+    \definecolor{CorrectionsCol}{HTML}{$corrections-col$}
+$else$
+    \definecolor{CorrectionsCol}{HTML}{CCCCFF}
+$endif$
+
+% Thesis Details
+\newcommand{\thesistitle}{$title$}
+\newcommand{\thesisauthor}{$author$}
+\newcommand{\thesisemail}{$email$}
+\newcommand{\thesisdepartment}{$department$}
+\newcommand{\thesisuniversity}{$university$}
+\newcommand{\thesisrequirements}{$thesis-requirements$}
+\newcommand{\thesisdegree}{$thesis-degree$}
+\newcommand{\thesisdate}{$thesis-date$}
+
+\title{\thesistitle}
+\degree{\thesisdegree}
+\degreedate{\thesisdate}
+\crest{\oldincludegraphics[width=35mm]{template/crest.pdf}}
+\collegeordept{\thesisdepartment}
+\university{\thesisuniversity}
+
+\ifpdf
+    \author{\Large \thesisauthor}
+    \pdfcatalog {/PageMode (/UseOutlines) /OpenAction (fitbh)}
+\else
+    \author{\thesisauthor}
+\fi
+
+% Dark mode %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\oldincludegraphics\includegraphics
+\newif\ifdarkmode
+$if(document-dark-mode)$
+    \darkmodetrue
+    \pagecolor{darkgray}
+    \color{white}
+    \definecolor{formalshade}{rgb}{0.23,0.23,0.39}
+    \definecolor{formalstripe}{rgb}{0.95,0.95,1}
+    \definecolor{roadmapred}{RGB}{168,133,136}
+    \definecolor{roadmapgreen}{RGB}{148,170,150}
+    \newcommand{\linkcolour}{SkyBlue}
+    \renewcommand{\includegraphics}[2][]{{\setlength{\fboxsep}{0pt}\colorbox{white}{\oldincludegraphics[#1]{#2}}}}
+$else$
+    \darkmodefalse
+    \definecolor{formalshade}{rgb}{0.95,0.95,1}
+    \definecolor{formalstripe}{rgb}{0.23,0.23,0.39}
+    \definecolor{roadmapred}{RGB}{247,196,200}
+    \definecolor{roadmapgreen}{RGB}{217,249,220}
+    \newcommand{\linkcolour}{MidnightBlue}
+$endif$
+
+% Print version config %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(document-for-print)$
+
+    \hypersetup{
+        pdfauthor={\thesisauthor \thesisemail},%
+        pdftitle={\thesistitle},%
+        pdfsubject={PhD Thesis for \thesisauthor},%
+        pdfkeywords={PhD, Thesis},%
+        pdfproducer={LaTeX},%
+        pdfcreator={pdfLaTeX}
+        colorlinks   = true, %Colours links instead of ugly boxes
+    }
+    \AtBeginDocument{\NoHyper}
+    \def\noToCPageLink{}
+    
+    % For final output, the rotate-page environment does not actually rotate the page
+    % to avoid binding issues. Instead it simply keeps the \clearpage and \pagebreak
+    % commands to make sure the overall layout is unaffected
+    \newenvironment{landscape}%
+        {\clearpage\pagebreak[4]}%
+        {\clearpage\pagebreak[4]}%
+
+$else$
+
+    \hypersetup{
+        pdfauthor={\thesisauthor (\thesisemail)},%
+        pdftitle={\thesistitle},%
+        pdfsubject={PhD Thesis for \thesisauthor},%
+        pdfkeywords={PhD, Thesis},%
+        pdfproducer={LaTeX},%
+        pdfcreator={pdfLaTeX},%
+        %
+        colorlinks   = true, %Colours links instead of ugly boxes
+        urlcolor     = \linkcolour, %Colour for external hyperlinks
+        linkcolor    = \linkcolour, %Colour of internal links
+        citecolor    = \linkcolour %Colour of citations
+    }
+  
+    % Create an environment that rotates a page in the PDF output. This does NOT rotate
+    % the content so header/footer remain correct for a portrait display, it simply sets
+    % the page display mode
+    \newenvironment{landscape}%
+        {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}}%
+        {\clearpage\pagebreak[4]\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}%
+
+    % Equal margins
+    \setlength\oddsidemargin{\dimexpr(\paperwidth-\textwidth)/2 - 1in\relax}
+    \setlength\evensidemargin{\oddsidemargin}
+
+$endif$
+
+% Glossary Config %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[toc,acronym,shortcuts]{glossaries} 
+\input{content/00-frontmatter/abbreviations.tex}
+\makeglossaries
+\glsenableentrycount
+
+% Use these in titles and figure captions rather than \gls, \Gls, \glspl, or \Glspl to avoid issues with bookmarks. This will give the fully expanded version rather than the acronym.
+\let\glstitle\glsentrylong
+\let\glstitlepl\glsentrylongpl
+\let\glstitleacr\glsentryshort
+\let\glstitleacrpl\glsentryshortpl
+
+% Code Handling
+\usepackage{listings}
+\usepackage[numbered,framed]{matlab-prettifier}
+\renewcommand\lstlistlistingname{List of Code Listings}
+\usepackage[lighttt]{lmodern}
+
+% Set white space before and after code blocks
+$if(spacing-codeblock-pre)$
+    \newcommand{\spacingcodeblockpre}{$spacing-codeblock-pre$}
+$else$
+    \newcommand{\spacingcodeblockpre}{10pt}
+$endif$
+
+$if(spacing-codeblock-post)$
+    \newcommand{\spacingcodeblockpost}{$spacing-codeblock-post$}
+$else$
+    \newcommand{\spacingcodeblockpost}{10pt}
+$endif$
+
+\renewenvironment{Shaded}
+{
+    \vspace{\spacingcodeblockpre}%
+    \begin{snugshade}%
+}{%
+    \end{snugshade}%
+    \vspace{\spacingcodeblockpost}%
+}
+
+% Section and TOC numbering depth
+$if(section-depth)$
+    \setcounter{secnumdepth}{$section-depth$}
+$endif$
+
+$if(section-depth)$
+    \setcounter{tocdepth}{$toc-depth$}
+$endif$
+
+% Caption Handling
+\usepackage{caption}
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\renewcommand\thesubtable{(\alph{subtable})}
+\DeclareCaptionLabelFormat{continued}{#1~#2 (Cont.)}
+\captionsetup[ContinuedFloat]{labelformat=continued}
+\captionsetup{font=normalsize}
+
+\newcommand{\phantomsubfloat}[1]{
+    {% apply caption setup only temporarily
+        \captionsetup[subfigure]{labelformat=empty}
+        \subfloat[][]{#1}
+    }%
+}
+
+%%
+%% Start of Document
+%%
+\begin{document}
+%\language{english}
+
+\renewcommand\baselinestretch{1.2}
+\baselineskip=18pt plus 1pt
+
+% Code Formatting Styles for listings
+\input{template/latex/style/listingStyles}
+
+% Title and Front Matter
+
+\maketitle
+%set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\renewcommand\thesubsubsection{\thesubsection.\Alph{subsubsection}} 
+
+% This redefines the \paragraph command to have a newline after it.
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
+
+% Start of Front Matter
+\frontmatter
+
+$if(declaration)$
+    \begin{declaration}
+        $declaration$
+    \end{declaration}
+$endif$
+
+$if(dedication)$
+    \begin{dedication}
+        \textit{$dedication$}
+    \end{dedication}
+$endif$
+
+$if(acknowledgements)$
+    \begin{acknowledgements}
+        $acknowledgements$
+    \end{acknowledgements}
+$endif$
+
+$if(abstract)$
+    \begin{abstractslong}
+        $abstract$
+    \end{abstractslong}
+$endif$
+
+\mainmatter
+
+% Pandoc converted full body text
+$body$
+
+% References
+\setlength{\baselineskip}{0pt}
+{\renewcommand*\MakeUppercase[1]{#1}%
+\printbibliography[heading=bibintoc,title={\bibtitle}]}
+
+\end{document}

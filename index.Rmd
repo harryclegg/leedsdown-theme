@@ -1,74 +1,68 @@
 ---
-#####################
-## thesis metadata ##
-#####################
+## thesis metadata
 title: |
-  A Leeds University Thesis \
-  Template for R Markdown
-author: Your Name
-department: Your School or Faculty
-university: University of Leeds
-university-logo: templates/crest.pdf
-thesis-requirements: Submitted in accordance with the requirements for the degree of
-thesis-degree: Doctor of Philosophy
-thesis-date: February 2021
+            A Leeds University Thesis \
+            Template for R Markdown
+author:                 Your Name
+department:             Your School or Faculty
+university:             University of Leeds
+university-logo:        crest.pdf
+thesis-requirements:    Submitted in accordance with the requirements for the degree of
+thesis-degree:          Doctor of Philosophy
+thesis-date:            February 2021
+
+## frontmatter files
 abstract: |
   `r paste(readLines("content/00-frontmatter/_abstract.Rmd"), collapse = '\n  ')`
 acknowledgements: |
   `r paste(readLines("content/00-frontmatter/_acknowledgements.Rmd"), collapse = '\n  ')`
-dedication: For Your Dedicatee
+dedication: |
+  `r paste(readLines("content/00-frontmatter/_dedication.Rmd"), collapse = '\n  ')`
 abbreviations: "content/00-frontmatter/abbreviations" # path to .tex file with abbreviations
 
 ## bibliography
-bibliography: content/references.bib
-bibliography-heading-in-pdf: References
-csl: templates/web/ieee.csl
+bib-files: content/references.bib
+# bib-pdf-heading: References           # default: References
+csl: template/web/ieee.csl
 
 ## correction highlighting
-corrections: true
-correction-col: CCCCFF
+# corrections-pdf-disabled: true        # true or commented out
+# corrections-col: CCCCFF               # any HTML colour
 
-## page layout
-nobind: true
-linespacing: 22pt plus2pt # 22pt is official for submission & library copies
-frontmatter-linespacing: 17pt plus1pt minus1pt #spacing in roman-numbered pages (acknowledgments, table of contents, etc.)
+## document setup
+# document-for-print: true              # true or commented out
+document-dark-mode: false
+# document-pdf-bind: true               # true or commented out
+global-table-of-contents: true
+global-list-of-figures: true
+global-list-of-tables: true
+chapter-table-of-contents: true
+chapter-list-of-figures: false
+chapter-list-of-tables: false
 
-## tables of content
-section-numbering-depth: 2 # to which depth should headings be numbered?
-toc-depth: 1 # to which depth should headings be included in table of contents?
-lof: true # include list of figures in front matter?
-lot: true # include list of tables in front matter?
-mini-toc: true  # include mini-table of contents at start of each chapter? (this just prepares it; you must also add \minitoc after the chapter titles)
-mini-lot: false  # include mini-list of tables by start of each chapter?
-mini-lof: false  # include mini-list of figures by start of each chapter?
-
-## code block spacing
-space-before-code-block: 10pt
-space-after-code-block: 8pt
-
-## other stuff
-hyperlinks: true # false to highlight clickable links with a colored border
-dark-mode: false
+# spacing modifiers
+# spacing-codeblock-pre: 10pt
+# spacing-codeblock-post: 10pt
 
 #####################
 ## output options  ##
 #####################
 output:
   bookdown::pdf_book:
-    template: templates/latex/template.tex
+    template: template/latex/template.tex
     keep_tex: true
     citation_package: biblatex  
-    pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=template/scripts/colour_and_highlight.lua"
   bookdown::bs4_book: 
     css: 
-      - templates/web/bs4_style.css
-      - templates/web/corrections.css # remove to stop highlighting corrections
+      - template/web/bs4_style.css
+      - template/web/corrections.css # remove to stop highlighting corrections
     theme:
       primary: "#6D1919"
     # repo: https://github.com/<github-username>/<github-repo>
-    pandoc_args: "--lua-filter=scripts/colour_and_highlight.lua"
+    pandoc_args: "--lua-filter=template/scripts/colour_and_highlight.lua"
   bookdown::gitbook:
-    css: templates/web/style.css
+    css: template/web/style.css
     config:
       sharing:
         facebook: false
@@ -90,12 +84,12 @@ knit: (function(input, ...) {bookdown::render_book(input, output_format = "bookd
 
 
 ```{r install_packages, include=FALSE}
-source('scripts/install_packages_if_missing.R')
+source('template/scripts/install_packages_if_missing.R')
 ```
 
 ```{r create_chunk_options, include=FALSE, eval=knitr::is_latex_output()}
-source('scripts/create_chunk_options.R')
-source('scripts/wrap_lines.R')
+source('template/scripts/create_chunk_options.R')
+source('template/scripts/wrap_lines.R')
 ```
 
 <!--

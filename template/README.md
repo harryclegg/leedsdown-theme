@@ -153,7 +153,7 @@ As shown in the sample chapters' YAML headers, to output a single chapter to PDF
 ```yaml
 output:
   bookdown::pdf_document2:
-    template: templates/brief_template.tex
+    template: template/brief_template.tex
     citation_package: biblatex
 documentclass: book
 bibliography: content/references.bib
